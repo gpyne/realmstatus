@@ -20,18 +20,18 @@ var ZoneStatus = map[int]string{
 
 // PvPZone Controlling faction
 var ZoneFaction = map[int]string{
-	0: "Horde",
-	1: "Alliance",
+	0: "Alliance",
+	1: "Horde",
 }
 
 var RealmStatus = map[bool]string{
-	true:  "up",
-	false: "down",
+	true:  "Online",
+	false: "Offline",
 }
 
 var RealmQueue = map[bool]string{
-	true:  "a",
-	false: "no",
+	true:  "Yes",
+	false: "No",
 }
 
 type PvPZone struct {
@@ -78,11 +78,11 @@ func main() {
 	}
 
 	for _, Realm := range r.Realms {
-		fmt.Printf("\n %s is %s, it has %s population and %s queue.\n", Realm.Name, RealmStatus[Realm.Status], Realm.Population, RealmQueue[Realm.Queue])
+		fmt.Printf("\nRealm: %s\nStatus: %s\nPopulation: %s\nQueue: %s\n", Realm.Name, RealmStatus[Realm.Status], Realm.Population, RealmQueue[Realm.Queue])
 		if *verbose {
-			fmt.Printf(" - It is a %s realm and a member of the %s battlegroup.\n", Realm.RealmType, Realm.Battlegroup)
-			fmt.Printf(" - Tol Barad is under %s control, the next battle begins at %s.\n", ZoneFaction[Realm.TolBarad.ControllingFaction], time.Unix(Realm.TolBarad.Next/1000, 0))
-			fmt.Printf(" - Wintergrasp is under %s control, the next battle begins at %s.\n", ZoneFaction[Realm.Wintergrasp.ControllingFaction], time.Unix(Realm.Wintergrasp.Next/1000, 0))
+			fmt.Printf("Realm Type: %s\nBattlegroup: %s\n", Realm.RealmType, Realm.Battlegroup)
+			fmt.Printf("Tol Barad: %s -- Next Battle: %s\n", ZoneFaction[Realm.TolBarad.ControllingFaction], time.Unix(Realm.TolBarad.Next/1000, 0))
+			fmt.Printf("Wintergrasp: %s -- Next Battle: %s\n", ZoneFaction[Realm.Wintergrasp.ControllingFaction], time.Unix(Realm.Wintergrasp.Next/1000, 0))
 		}
 	}
 	resp.Body.Close()
